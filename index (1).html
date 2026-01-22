@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-9">
+<title>Sorry Betuuuu ️</title>
+<style>
+body{
+ margin:0;font-family:Arial;
+ display:flex;justify-content:center;align-items:center;height:100vh;
+ background:linear-gradient(135deg,#ff758c,#ff7eb3);
+}
+.app{
+ width:100%;max-width:400px;text-align:center;
+ background:white;border-radius:15px;overflow:hidden;
+ box-shadow:0 0 20px #000;padding:20px;
+}
+.hidden{display:none;}
+input{padding:10px;border-radius:10px;border:1px solid #ccc;width:80%;margin:10px 0;}
+button{padding:10px 20px;border:none;border-radius:10px;background:#075E54;color:white;margin:10px;cursor:pointer;}
+h2{color:#ff3366;}
+.sorryNote{font-size:18px;color:#ff0066;padding:20px;}
+.imgSection img{width:100%;border-radius:10px;display:none;margin-top:20px;}
+.backBtn{background:#ff3366;}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+<!-- SECTION 1: LOCK -->
+<div id="section1">
+ <h2>Enter Name & Password </h2>
+ <input id="nameInput" placeholder="Your Name"><br>
+ <input id="passInput" type="password" placeholder="Password"><br>
+ <button onclick="goSection2()">Enter</button>
+</div>
+
+<!-- SECTION 2: Betu Naraz Ho -->
+<div id="section2" class="hidden">
+ <h2>Betu Naraz Ho </h2>
+ <button onclick="goSection3()">Next </button>
+ <button class="backBtn" onclick="backToSection1()">Back </button>
+</div>
+
+<!-- SECTION 3: Sorry Note -->
+<div id="section3" class="hidden">
+ <div class="sorryNote">I am so sorry betuuu </div>
+ <button onclick="goSection4()">See Pictures </button>
+ <button class="backBtn" onclick="backToSection2()">Back </button>
+</div>
+
+<!-- SECTION 4: Pictures + Song -->
+<div id="section4" class="hidden">
+ <div class="imgSection">
+   <img id="img1" src="p1.jpg">
+   <img id="img2" src="p2.jpg">
+   <img id="img3" src="p3.jpg">
+ </div>
+ <button class="backBtn" onclick="backToSection3()">Back </button>
+ <audio id="music" src="music.mp3" loop></audio>
+</div>
+
+</div>
+
+<script>
+/* ================= PASSWORD ================= */
+const correctPassword = "bittu"; // Password set
+let userName = "";
+
+/* ================= NAVIGATION FUNCTIONS ================= */
+function goSection2(){
+ let nameVal = nameInput.value.trim();
+ let passVal = passInput.value.trim();
+ if(!nameVal || !passVal){
+   alert("Name & Password required!");
+   return;
+ }
+ if(passVal !== correctPassword){
+   alert("password is (bittu)");
+   return;
+ }
+ userName = nameVal;
+ section1.classList.add("hidden");
+ section2.classList.remove("hidden");
+}
+
+function backToSection1(){
+ section2.classList.add("hidden");
+ section1.classList.remove("hidden");
+}
+
+function goSection3(){
+ section2.classList.add("hidden");
+ section3.classList.remove("hidden");
+}
+
+function backToSection2(){
+ section3.classList.add("hidden");
+ section2.classList.remove("hidden");
+}
+
+function goSection4(){
+ section3.classList.add("hidden");
+ section4.classList.remove("hidden");
+ startImageSlider();
+ music.play();
+}
+
+function backToSection3(){
+ section4.classList.add("hidden");
+ section3.classList.remove("hidden");
+ music.pause();
+}
+
+/* ================= IMAGE SLIDER ================= */
+let currentImg = 0;
+function startImageSlider(){
+ const images = [img1,img2,img3];
+ images.forEach(img=>img.style.display="none");
+ currentImg = 0;
+ images[currentImg].style.display="block";
+ setInterval(()=>{
+   images[currentImg].style.display="none";
+   currentImg = (currentImg+1)%images.length;
+   images[currentImg].style.display="block";
+ },3000); // 3 sec per image
+}
+</script>
+
+</body>
+</html>
